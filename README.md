@@ -13,13 +13,14 @@ Web Application สำหรับติดตามคำสัญญาขอ�
 
 ## วิธีการ Run โปรแกรม
 **1. สร้างและเปิดใช้งาน Virtual Environment**
-python -m venv .venv
-.venv\Scripts\activate
+- python -m venv .venv
+- .venv\Scripts\activate
 
 **2. ติดตั้ง Library**
-pip install flask flask_sqlalchemy
+- pip install flask flask_sqlalchemy
 
 **3.สร้างฐานข้อมูลและ Sample Data**
-python seed.py
+- python seed.py
+
 **4. Run ระบบ**
-python app.py และเปิด http://127.0.0.1:5000
+- python app.py และเปิด http://127.0.0.1:5000
