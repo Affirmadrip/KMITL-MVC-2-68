@@ -1,7 +1,7 @@
 # Promise Tracker (MVC)
 
 Web Application สำหรับติดตามคำสัญญาของนักการเมือง 
-พัฒนาด้วย Flask (Python) ตามแนวคิด MVC (Model–View–Controller)
+พัฒนาด้วย Flask (Python) ตามแนวคิด MVC
 
 ## โครงสร้างระบบแบบ MVC
 - **Model**: `models.py`
