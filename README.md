@@ -17,7 +17,7 @@ Web Application สำหรับติดตามคำสัญญาขอ�
 - .venv\Scripts\activate
 
 **2. ติดตั้ง Library**
-- pip install flask flask_sqlalchemy
+- python -m pip install -r requirements.txt
 
 **3. สร้างฐานข้อมูลและ Sample Data**
 - python seed.py
