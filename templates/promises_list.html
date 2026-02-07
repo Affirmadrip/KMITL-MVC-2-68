@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3 style="margin-top:0;">All Promises</h3>
+
+<div class="row" style="margin: 10px 0 14px;">
+  <form method="get" action="/promises" class="row">
+    <label class="muted"><b>Sort by announcement date:</b></label>
+    <select name="sort" onchange="this.form.submit()">
+      <option value="newest" {% if sort == "newest" %}selected{% endif %}>Newest → Oldest</option>
+      <option value="oldest" {% if sort == "oldest" %}selected{% endif %}>Oldest → Newest</option>
+    </select>
+    <noscript>
+      <button class="btn" type="submit">Apply</button>
+    </noscript>
+  </form>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Politician</th>
+      <th>Status</th>
+      <th>Announcement Date</th>
+      <th>Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for p in promises %}
+    <tr>
+      <td>{{ p.promise_id }}</td>
+      <td>
+        <a href="/politicians/{{ p.politician_id }}">
+          {{ p.politician.name }}
+        </a>
+        <span class="muted">({{ p.politician.party }})</span>
+      </td>
+      <td>
+        {% if p.promise_status == "Has Begun" %}
+          <span class="badge begin">Has Begun</span>
+        {% elif p.promise_status == "On Process" %}
+          <span class="badge process">On Process</span>
+        {% else %}
+          <span class="badge noupdate">No update</span>
+        {% endif %}
+      </td>
+      <td>{{ p.date_of_announcement }}</td>
+      <td>
+        <a class="btn" href="/promises/{{ p.promise_id }}">Open</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% if promises|length == 0 %}
+  <p class="muted">No promises found.</p>
+{% endif %}
+
+{% endblock %}

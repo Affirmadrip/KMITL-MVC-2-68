@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3 style="margin-top:0;">Politician Profile</h3>
+
+<div class="row">
+  <div>
+    <p><b>Politician ID:</b> {{ politician.politician_id }}</p>
+    <p><b>Name:</b> {{ politician.name }}</p>
+    <p><b>Party:</b> {{ politician.party }}</p>
+  </div>
+</div>
+
+<hr/>
+
+<h4>Campaigns</h4>
+{% if politician.campaigns and politician.campaigns|length > 0 %}
+  <table>
+    <thead>
+      <tr>
+        <th>Campaign ID</th>
+        <th>Year of Campaign</th>
+        <th>Electoral District</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for c in politician.campaigns %}
+      <tr>
+        <td>{{ c.campaign_id }}</td>
+        <td>{{ c.year_of_campaign }}</td>
+        <td>{{ c.electoral_district }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <p class="muted">No campaigns found for this politician.</p>
+{% endif %}
+
+<hr/>
+
+<h4>Promises</h4>
+{% if promises %}
+  <table>
+    <thead>
+      <tr>
+        <th>Promise ID</th>
+        <th>Status</th>
+        <th>Announcement Date</th>
+        <th>Open</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for pr in promises %}
+      <tr>
+        <td>{{ pr.promise_id }}</td>
+        <td>
+          {% if pr.promise_status == "Has Begun" %}
+            <span class="badge begin">Has Begun</span>
+          {% elif pr.promise_status == "On Process" %}
+            <span class="badge process">On Process</span>
+          {% else %}
+            <span class="badge noupdate">No update</span>
+          {% endif %}
+        </td>
+        <td>{{ pr.date_of_announcement }}</td>
+        <td>
+          <a class="btn" href="/promises/{{ pr.promise_id }}">Details</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <p class="muted">No promises found.</p>
+{% endif %}
+
+{% endblock %}

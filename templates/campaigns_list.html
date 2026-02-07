@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3 style="margin-top:0;">Campaigns</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Campaign ID</th>
+      <th>Year of Campaign</th>
+      <th>Electoral District</th>
+      <th>Politician</th>
+      <th>Party</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for c in campaigns %}
+    <tr>
+      <td>{{ c.campaign_id }}</td>
+      <td>{{ c.year_of_campaign }}</td>
+      <td>{{ c.electoral_district }}</td>
+      <td>{{ c.politician.name }}</td>
+      <td>{{ c.politician.party }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% if campaigns|length == 0 %}
+  <p class="muted">No campaigns found.</p>
+{% endif %}
+
+{% endblock %}

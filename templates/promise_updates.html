@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>Promise Updates (Add Progress)</h3>
+
+<p><b>Promise ID:</b> {{ promise.promise_id }}</p>
+<p><b>Status:</b> {{ promise.promise_status }}</p>
+<p><b>Details:</b> {{ promise.promise_details }}</p>
+<p><a href="/promises/{{ promise.promise_id }}">Back to Details</a></p>
+
+<hr/>
+
+{% if user.role == "admin" %}
+  {% if promise.promise_status == "No update" %}
+    <p><b>This promise is "No update" and cannot be updated further.</b></p>
+  {% else %}
+    <form method="post" action="/promises/{{ promise.promise_id }}/updates">
+      <div>
+        <label>Date of Update (YYYY-MM-DD):</label>
+        <input name="date_of_update" type="date" />
+      </div>
+      <div>
+        <label>Progress Details:</label><br/>
+        <textarea name="progress_details" rows="4" cols="60"></textarea>
+      </div>
+      <button type="submit">Add Update</button>
+    </form>
+  {% endif %}
+{% else %}
+  <p><i>Only admin can add updates.</i></p>
+{% endif %}
+
+<hr/>
+<h4>Existing Updates</h4>
+{% if updates %}
+  <ul>
+  {% for u in updates %}
+    <li><b>{{ u.date_of_update }}</b>: {{ u.progress_details }}</li>
+  {% endfor %}
+  </ul>
+{% else %}
+  <p>No updates yet.</p>
+{% endif %}
+
+{% endblock %}

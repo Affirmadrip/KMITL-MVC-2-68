@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>Politicians</h3>
+<ul>
+  {% for p in politicians %}
+    <li>
+      <a href="/politicians/{{ p.politician_id }}">{{ p.name }}</a>
+      ({{ p.party }}) - ID: {{ p.politician_id }}
+    </li>
+  {% endfor %}
+</ul>
+{% endblock %}

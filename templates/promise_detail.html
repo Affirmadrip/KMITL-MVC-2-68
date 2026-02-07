@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>Promise Details</h3>
+
+<p><b>Promise ID:</b> {{ promise.promise_id }}</p>
+<p><b>Politician:</b> <a href="/politicians/{{ promise.politician_id }}">{{ promise.politician.name }}</a></p>
+<p><b>Status:</b> {{ promise.promise_status }}</p>
+<p><b>Announcement Date:</b> {{ promise.date_of_announcement }}</p>
+<p><b>Promise Details:</b><br/>{{ promise.promise_details }}</p>
+
+<p><a href="/promises/{{ promise.promise_id }}/updates">Go to Updates Page</a></p>
+
+<h4>Update History</h4>
+{% if updates %}
+  <ul>
+  {% for u in updates %}
+    <li><b>{{ u.date_of_update }}</b>: {{ u.progress_details }}</li>
+  {% endfor %}
+  </ul>
+{% else %}
+  <p>No updates yet.</p>
+{% endif %}
+{% endblock %}

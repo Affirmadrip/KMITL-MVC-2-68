@@ -1,0 +1,167 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Promise Tracker (MVC)</title>
+  <style>
+    :root{
+      --bg:#f6f7fb;
+      --card:#ffffff;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --brand:#2563eb;
+      --brand2:#22c55e;
+      --warn:#f97316;
+      --danger:#ef4444;
+      --border:#e5e7eb;
+      --shadow: 0 8px 20px rgba(0,0,0,.06);
+      --radius: 14px;
+    }
+
+    *{ box-sizing:border-box; }
+    body{
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 18px;
+    }
+
+    a{ color: var(--brand); text-decoration:none; }
+    a:hover{ text-decoration:underline; }
+
+    .topbar{
+      background: linear-gradient(90deg, var(--brand), #7c3aed);
+      color: white;
+      padding: 14px 16px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      display:flex;
+      align-items:center;
+      gap: 14px;
+    }
+    .topbar a{ color: white; font-weight:600; opacity:.95; }
+    .topbar a:hover{ opacity:1; text-decoration:underline; }
+    .topbar .spacer{ margin-left:auto; }
+
+    .container{
+      max-width: 1100px;
+      margin: 14px auto 0;
+    }
+
+    .card{
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 14px;
+      margin-top: 14px;
+    }
+
+    .flash{
+      border-left: 6px solid var(--brand2);
+      background: #ecfdf5;
+      padding: 10px 12px;
+      border-radius: 10px;
+      margin-top: 12px;
+    }
+
+    table{
+      width:100%;
+      border-collapse: collapse;
+    }
+    th, td{
+      padding: 10px 10px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    th{
+      text-align:left;
+      color: var(--muted);
+      font-weight:700;
+      background: #f8fafc;
+    }
+
+    .badge{
+      display:inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      border: 1px solid var(--border);
+      background: #f9fafb;
+      color: var(--text);
+    }
+    .badge.begin{ background:#eff6ff; border-color:#bfdbfe; color:#1d4ed8; }
+    .badge.process{ background:#f0fdf4; border-color:#bbf7d0; color:#15803d; }
+    .badge.noupdate{ background:#fff7ed; border-color:#fed7aa; color:#c2410c; }
+
+    .btn{
+      display:inline-block;
+      padding: 8px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: white;
+      cursor: pointer;
+      font-weight: 700;
+    }
+    .btn.primary{
+      background: var(--brand);
+      color: white;
+      border-color: transparent;
+    }
+    .btn.primary:hover{ filter: brightness(.95); }
+
+    .row{
+      display:flex;
+      gap: 10px;
+      align-items:center;
+      flex-wrap: wrap;
+    }
+    select, input, textarea{
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 8px 10px;
+      font: inherit;
+      background: white;
+    }
+    textarea{ width: 100%; }
+    .muted{ color: var(--muted); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="topbar">
+      <h2 style="margin:0;">Promise Tracker</h2>
+      <a href="/promises">All Promises</a>
+      <a href="/politicians">Politicians</a>
+      <a href="/campaigns">Campaigns</a>
+
+      <div class="spacer">
+        {% if user %}
+          Logged in: <b>{{ user.username }}</b> ({{ user.role }}) |
+          <a href="/logout">Logout</a>
+        {% else %}
+          <a href="/login">Login</a>
+        {% endif %}
+      </div>
+    </div>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="flash">
+          <ul style="margin:0; padding-left: 18px;">
+            {% for m in messages %}
+              <li>{{ m }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <div class="card">
+      {% block content %}{% endblock %}
+    </div>
+  </div>
+</body>
+</html>
